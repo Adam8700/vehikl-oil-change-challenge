@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Models\OilChangeCheck;
+use Carbon\Carbon;
 
 Route::get('/', function () {
     return view('oil-change');
@@ -26,7 +27,21 @@ Route::post('/check', function (Request $request) {
 
 Route::get('/result/{id}', function ($id) {
     $check = OilChangeCheck::find($id);
-    
-    return view('result', ['check' => $check]);
+
+    // Oil change by Kms calculation 
+    $kilometresSinceOilChange = $check->current_odometer - $check->previous_odometer;
+    $dueByKilometres = $kilometresSinceOilChange > 5000;
+
+    // Oil Change Due by Time Calculation
+    $previousDate = Carbon::parse($check->previous_oil_change_date);
+    $sixMonthDate = $previousDate->copy()->addMonths(6);
+    $dueByTime = $sixMonthDate->isPast();
+
+    $oilChangeDue = $dueByKilometres || $dueByTime;
+
+    return view('result', [
+        'check' => $check,
+        'oilChangeDue' => $oilChangeDue
+    ]);
 });
 
