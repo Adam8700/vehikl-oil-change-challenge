@@ -35,7 +35,7 @@ Route::get('/result/{id}', function ($id) {
     // Oil Change Due by Time Calculation
     $previousDate = Carbon::parse($check->previous_oil_change_date);
     $sixMonthDate = $previousDate->copy()->addMonths(6);
-    $dueByTime = $sixMonthDate->isPast();
+    $dueByTime = $sixMonthDate->lt(Carbon::today());
 
     $oilChangeDue = $dueByKilometres || $dueByTime;
 

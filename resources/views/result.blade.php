@@ -16,3 +16,5 @@
 @else
     <p>Your vehicle is not due for an oil change.</p>
 @endif
+
+<a href="/">Check Another Vehicle</a>
