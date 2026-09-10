@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="/css/style.css">
+
+<div class="container">
 <h1>Oil Change Result</h1>
 @if ($errors->any())
 <ul>
@@ -12,9 +15,10 @@
 <p>Previous Oil Change Date: {{ $check->previous_oil_change_date }}</p>
 
 @if ($oilChangeDue)
-    <p>Your vehicle is due for an oil change.</p>
+    <p><strong>Your vehicle is due for an oil change.</strong></p>
 @else
-    <p>Your vehicle is not due for an oil change.</p>
+    <p><strong>Your vehicle is not due for an oil change.</strong></p>
 @endif
 
 <a href="/">Check Another Vehicle</a>
+</div>
