@@ -46,7 +46,7 @@ php artisan key:generate
 Create the SQLite database file:
 
 ```bash
-type nul > database\database.sqlite
+php -r "touch('database/database.sqlite');"
 ```
 
 Run the database migrations:
